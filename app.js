@@ -773,15 +773,15 @@ updateGoals(taraz) {
         UI.init();
     }
 
-//  script.js
-// javascript
+// //  script.js
+// // javascript
  
- /* Social Bento Interaction Layer
-  (reserved for future animations or analytics)
-  Yes… deliberately clean 😎
-*/
+//  /* Social Bento Interaction Layer
+//   (reserved for future animations or analytics)
+//   Yes… deliberately clean 😎
+// */
 
-console.log("🔥 Social Bento Loaded Successfully");
+// console.log("🔥 Social Bento Loaded Successfully");
 
 
-})();
+// })();
