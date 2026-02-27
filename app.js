@@ -783,4 +783,4 @@ javascript
 
 console.log("🔥 Social Bento Loaded Successfully");
 
-})();
+
