@@ -783,5 +783,4 @@ updateGoals(taraz) {
 
 // console.log("🔥 Social Bento Loaded Successfully");
 
-
 })();
