@@ -1,0 +1,830 @@
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  تخمین تراز قلم‌چی — استایل‌شیت اصلی                    ║
+   ║  ترکیب: بنتو گرید 30% + گلسمورفیسم 40% + نئومورفیسم 30% ║
+   ║  نسخه: 2.0                                               ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+/* ──────────────── متغیرهای تم روشن ──────────────── */
+:root,
+[data-theme="light"] {
+    /* رنگ‌های پایه */
+    --bg-primary:       #F5F0EB;          /* سفید صدفی */
+    --bg-secondary:     #FFFFFF;
+    --bg-card:          rgba(255, 255, 255, 0.55);
+
+    /* متن */
+    --text-primary:     #2D2B37;
+    --text-secondary:   #6E6B7B;
+    --text-muted:       #A8A5B2;
+
+    /* پاستیلی */
+    --pastel-pink:      #FFD6E0;
+    --pastel-blue:      #C5DFFF;
+    --pastel-green:     #C8F7DC;
+    --pastel-purple:    #E0D4FA;
+    --pastel-yellow:    #FFF3C4;
+    --pastel-orange:    #FFE0CC;
+    --pastel-mint:      #B8F0E0;
+
+    /* اکسنت */
+    --accent:           #7C5CFC;
+    --accent-soft:      #E0D4FA;
+
+    /* گلسمورفیسم */
+    --glass-bg:         rgba(255, 255, 255, 0.45);
+    --glass-border:     rgba(255, 255, 255, 0.60);
+    --glass-blur:       16px;
+
+    /* نئومورفیسم */
+    --neo-shadow-light: #FFFFFF;
+    --neo-shadow-dark:  rgba(174, 168, 185, 0.35);
+
+    /* سطح تراز */
+    --level-red:        #FF6B6B;
+    --level-orange:     #FFA94D;
+    --level-yellow:     #FFD43B;
+    --level-green:      #69DB7C;
+    --level-blue:       #4DABF7;
+    --level-gold:       #F4C430;
+
+    /* مرز و سایه */
+    --border-light:     rgba(255, 255, 255, 0.6);
+    --shadow-card:      0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* ──────────────── متغیرهای تم تاریک ──────────────── */
+[data-theme="dark"] {
+    --bg-primary:       #1A1825;
+    --bg-secondary:     #252336;
+    --bg-card:          rgba(37, 35, 54, 0.65);
+
+    --text-primary:     #E8E6F0;
+    --text-secondary:   #A5A2B5;
+    --text-muted:       #6E6B7B;
+
+    --pastel-pink:      #5E3A4A;
+    --pastel-blue:      #3A4A6E;
+    --pastel-green:     #3A5E4A;
+    --pastel-purple:    #4A3A6E;
+    --pastel-yellow:    #5E5A3A;
+    --pastel-orange:    #5E4A3A;
+    --pastel-mint:      #3A5E5A;
+
+    --accent:           #9B7FFF;
+    --accent-soft:      #3D2E6E;
+
+    --glass-bg:         rgba(37, 35, 54, 0.50);
+    --glass-border:     rgba(255, 255, 255, 0.08);
+    --glass-blur:       16px;
+
+    --neo-shadow-light: rgba(255, 255, 255, 0.04);
+    --neo-shadow-dark:  rgba(0, 0, 0, 0.50);
+
+    --border-light:     rgba(255, 255, 255, 0.06);
+    --shadow-card:      0 8px 32px rgba(0, 0, 0, 0.30);
+}
+
+/* ──────────────── ریست و پایه ──────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    direction: rtl;
+    line-height: 1.7;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ──────────────── هدر ──────────────── */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.app-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), #FF6B9D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.app-version {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.header-left {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+
+    /* نئومورفیسم */
+    background: var(--bg-primary);
+    box-shadow:
+        4px 4px 8px var(--neo-shadow-dark),
+       -4px -4px 8px var(--neo-shadow-light);
+}
+
+.btn-icon:hover {
+    box-shadow:
+        2px 2px 4px var(--neo-shadow-dark),
+       -2px -2px 4px var(--neo-shadow-light);
+    transform: scale(0.96);
+}
+
+.btn-icon:active {
+    box-shadow:
+        inset 2px 2px 5px var(--neo-shadow-dark),
+        inset -2px -2px 5px var(--neo-shadow-light);
+}
+
+/* ──────────────── بنتو گرید اصلی ──────────────── */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ──────────────── کارت پایه (گلسمورفیسم) ──────────────── */
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.card-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* ──────────────── ترتیب کارت‌ها در گرید ──────────────── */
+.grade12-card   { grid-column: 1 / 2; grid-row: 1 / 2; }
+.paye-card      { grid-column: 2 / 3; grid-row: 1 / 3; }
+.card-result    { grid-column: 3 / 4; grid-row: 1 / 3; }
+.card-sensitivity { grid-column: 1 / 2; grid-row: 2 / 3; }
+.card-reverse   { grid-column: 1 / 2; grid-row: 3 / 4; }
+.card-simulate  { grid-column: 2 / 4; grid-row: 3 / 4; }
+
+/* ──────────────── بخش ورودی دروس ──────────────── */
+.inputs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.input-group {
+    padding: 0.7rem 0.9rem;
+    border-radius: 16px;
+    background: var(--bg-primary);
+    /* نئومورفیسم سبک */
+    box-shadow:
+        inset 2px 2px 5px var(--neo-shadow-dark),
+        inset -2px -2px 5px var(--neo-shadow-light);
+    transition: box-shadow 0.3s ease;
+}
+
+.input-group:focus-within {
+    box-shadow:
+        inset 2px 2px 5px var(--neo-shadow-dark),
+        inset -2px -2px 5px var(--neo-shadow-light),
+        0 0 0 3px var(--accent-soft);
+}
+
+.input-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* استایل اینپوت درصد */
+.pct-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    padding: 0.3rem 0;
+    direction: ltr;
+}
+
+/* حذف اسپینر فایرفاکس */
+.pct-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* حذف اسپینر کروم، سافاری و اج */
+.pct-input[type="number"]::-webkit-outer-spin-button,
+.pct-input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pct-input::placeholder {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.input-unit {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* مینی نوار پیشرفت زیر هر اینپوت */
+.mini-progress {
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.06);
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.mini-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    background: var(--accent);
+    transition: width 0.5s ease, background 0.4s ease;
+}
+
+/* رنگ‌بندی مینی بار بر اساس مقدار */
+.mini-bar.low       { background: var(--level-red); }
+.mini-bar.medium    { background: var(--level-orange); }
+.mini-bar.good      { background: var(--level-yellow); }
+.mini-bar.great     { background: var(--level-green); }
+.mini-bar.excellent { background: var(--level-blue); }
+
+/* ──────────────── کارت نتیجه تراز ──────────────── */
+.card-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--glass-bg), rgba(124, 92, 252, 0.06));
+}
+
+.taraz-display {
+    margin: 1.5rem 0 1rem;
+}
+
+.taraz-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--accent);
+    transition: color 0.4s ease;
+    font-variant-numeric: tabular-nums;
+}
+
+.taraz-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+}
+
+/* نشان سطح */
+.level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    box-shadow:
+        3px 3px 6px var(--neo-shadow-dark),
+       -3px -3px 6px var(--neo-shadow-light);
+    transition: all 0.4s ease;
+}
+
+/* کلاس‌های رنگ سطح */
+.level-badge.lvl-red    { background: #FFE0E0; color: #CC3333; }
+.level-badge.lvl-orange { background: #FFE8D6; color: #CC6600; }
+.level-badge.lvl-yellow { background: #FFF5D6; color: #AA8800; }
+.level-badge.lvl-green  { background: #D6FFE0; color: #228833; }
+.level-badge.lvl-blue   { background: #D6EEFF; color: #2266BB; }
+.level-badge.lvl-gold   { background: linear-gradient(135deg, #FFF5C4, #FFE082); color: #886600; }
+
+[data-theme="dark"] .level-badge.lvl-red    { background: #4A2020; color: #FF8080; }
+[data-theme="dark"] .level-badge.lvl-orange { background: #4A3020; color: #FFB870; }
+[data-theme="dark"] .level-badge.lvl-yellow { background: #4A4020; color: #FFD860; }
+[data-theme="dark"] .level-badge.lvl-green  { background: #204A30; color: #80FF90; }
+[data-theme="dark"] .level-badge.lvl-blue   { background: #203040; color: #80C0FF; }
+[data-theme="dark"] .level-badge.lvl-gold   { background: linear-gradient(135deg, #4A4020, #5A4A20); color: #FFD860; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   🎯 بخش اهداف دانشگاهی - نسخه ۶ سطحی
+   طراحی: ترکیب گلسمورفیسم + نئومورفیسم + بنتو گرید
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.goals-section {
+    width: 100%;
+    text-align: right;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.goals-title {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ─────────────────────────────────────────────────────
+   هر آیتم هدف - کارت گلسمورفیک
+   ───────────────────────────────────────────────────── */
+.goal-item {
+    margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.goal-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* رنگ‌بندی حاشیه چپ برای هر سطح */
+.goal-legendary { border-right: 4px solid #FFD700; }
+.goal-gold      { border-right: 4px solid #FFA500; }
+.goal-silver    { border-right: 4px solid #A0AEC0; }
+.goal-bronze    { border-right: 4px solid #CD7F32; }
+.goal-free      { border-right: 4px solid #9B59B6; }
+.goal-home      { border-right: 4px solid #E74C3C; }
+
+/* ─────────────────────────────────────────────────────
+   هدر هر هدف
+   ───────────────────────────────────────────────────── */
+.goal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.goal-emoji {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.goal-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.goal-universities {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex: 1;
+    text-align: left;
+    direction: ltr;
+}
+
+.goal-value {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+}
+
+/* ─────────────────────────────────────────────────────
+   نوار پیشرفت - نئومورفیک
+   ───────────────────────────────────────────────────── */
+.goal-progress {
+    height: 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+    position: relative;
+}
+
+.goal-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 12px;
+    transition: 
+        width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.4s ease,
+        box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* افکت درخشش متحرک روی نوار */
+.goal-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0%   { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ─────────────────────────────────────────────────────
+   رنگ‌بندی نوارها - ۶ سطح
+   ───────────────────────────────────────────────────── */
+#goalBarLegendary {
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+#goalBarGold {
+    background: linear-gradient(135deg, #FFA500, #FF8C00);
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.4);
+}
+
+#goalBarSilver {
+    background: linear-gradient(135deg, #A0AEC0, #718096);
+    box-shadow: 0 0 10px rgba(160, 174, 192, 0.4);
+}
+
+#goalBarBronze {
+    background: linear-gradient(135deg, #CD7F32, #B8860B);
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+}
+
+#goalBarFree {
+    background: linear-gradient(135deg, #9B59B6, #8E44AD);
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.4);
+}
+
+#goalBarHome {
+    background: linear-gradient(135deg, #E74C3C, #C0392B);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
+}
+
+/* انیمیشن گرادیانت برای سطح رویایی */
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ─────────────────────────────────────────────────────
+   وضعیت هدف (ایموجی + متن)
+   ───────────────────────────────────────────────────── */
+.goal-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    min-height: 1.5rem;
+}
+
+.goal-status span {
+    transition: all 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────
+   ریسپانسیو - موبایل
+   ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .goals-section {
+        padding: 0.75rem;
+    }
+    
+    .goal-item {
+        padding: 0.7rem 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .goal-header {
+        gap: 0.4rem;
+    }
+    
+    .goal-emoji {
+        font-size: 1.1rem;
+    }
+    
+    .goal-name {
+        font-size: 0.8rem;
+    }
+    
+    .goal-universities {
+        display: none; /* مخفی در موبایل برای صرفه‌جویی فضا */
+    }
+    
+    .goal-progress {
+        height: 10px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────
+   دارک مود
+   ───────────────────────────────────────────────────── */
+[data-theme="dark"] .goals-section {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .goal-item {
+    background: rgba(40, 40, 40, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .goal-progress {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.3),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .goal-value {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ──────────────── کارت تحلیل حساسیت ──────────────── */
+.sensitivity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sens-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    background: var(--bg-primary);
+    font-size: 0.8rem;
+    box-shadow:
+        2px 2px 4px var(--neo-shadow-dark),
+       -2px -2px 4px var(--neo-shadow-light);
+}
+
+.sens-name {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.sens-value {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.sens-value.positive { color: #40C057; }
+.sens-value.negative { color: #FF6B6B; }
+
+/* ──────────────── محاسبه معکوس و شبیه‌سازی ──────────────── */
+.reverse-input-row,
+.simulate-input-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+}
+
+.reverse-input,
+.simulate-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 2px solid var(--glass-border);
+    border-radius: 14px;
+    background: var(--bg-primary);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+    direction: ltr;
+}
+
+.reverse-input:focus,
+.simulate-input:focus {
+    border-color: var(--accent);
+}
+
+.btn-calc {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #FFF;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.btn-calc:hover {
+    opacity: 0.88;
+    transform: scale(0.97);
+}
+
+.reverse-result,
+.simulate-result {
+    padding: 0.85rem;
+    border-radius: 14px;
+    background: var(--bg-primary);
+    text-align: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    box-shadow:
+        inset 2px 2px 5px var(--neo-shadow-dark),
+        inset -2px -2px 5px var(--neo-shadow-light);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+/* ──────────────── فوتر ──────────────── */
+.app-footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* ──────────────── انیمیشن‌ها ──────────────── */
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 252, 0); }
+    50%      { box-shadow: 0 0 20px 4px rgba(124, 92, 252, 0.15); }
+}
+
+.card-result.active {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ──────────────── ریسپانسیو ──────────────── */
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+    }
+
+    .grade12-card     { grid-column: 1 / 2; grid-row: auto; }
+    .paye-card        { grid-column: 2 / 3; grid-row: auto; }
+    .card-result      { grid-column: 1 / 3; grid-row: auto; }
+    .card-sensitivity { grid-column: 1 / 3; grid-row: auto; }
+    .card-reverse     { grid-column: 1 / 2; grid-row: auto; }
+    .card-simulate    { grid-column: 2 / 3; grid-row: auto; }
+}
+
+@media (max-width: 640px) {
+    html { font-size: 14px; }
+
+    .app-header {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .app-title { font-size: 1.05rem; }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        padding: 0.75rem;
+        gap: 1rem;
+    }
+
+    .grade12-card,
+    .paye-card,
+    .card-result,
+    .card-sensitivity,
+    .card-reverse,
+    .card-simulate {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    .taraz-number { font-size: 2.8rem; }
+
+    .card { padding: 1.15rem; border-radius: 20px; }
+}

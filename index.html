@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تخمین تراز قلم‌چی | داشبورد هوشمند</title>
+
+    <!-- فونت وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+
+    <!-- html2canvas برای خروجی PNG -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
+    <!-- فایل‌های پروژه -->
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- ═══════════════════ هدر ═══════════════════ -->
+    <header class="app-header">
+        <div class="header-right">
+            <h1 class="app-title">📐 تخمین تراز قلم‌چی</h1>
+            <span class="app-version">v9.0-Stable</span>
+        </div>
+        <div class="header-left">
+            <button id="btnTheme" class="btn-icon" title="تغییر تم">🌙</button>
+            <button id="btnReset" class="btn-icon" title="پاک کردن همه">🗑️</button>
+            <button id="btnExport" class="btn-icon" title="خروجی PNG">📸</button>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ محتوای اصلی ═══════════════════ -->
+    <main id="mainContent" class="bento-grid">
+
+        <!-- ─────── بخش ورودی دروس دوازدهم ─────── -->
+        <section class="card card-inputs grade12-card">
+            <h2 class="card-title">📚 دروس اختصاصی دوازدهم</h2>
+            <div class="inputs-grid">
+
+                <div class="input-group" data-subject="zist12">
+                    <label class="input-label">🧬 زیست دوازدهم</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-zist12"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-zist12"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="fiz12">
+                    <label class="input-label">⚡ فیزیک دوازدهم</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-fiz12"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-fiz12"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="shimi12">
+                    <label class="input-label">🧪 شیمی دوازدهم</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-shimi12"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-shimi12"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="riyazi12">
+                    <label class="input-label">📐 ریاضی دوازدهم</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-riyazi12"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-riyazi12"></div></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ─────── بخش ورودی دروس پایه ─────── -->
+        <section class="card card-inputs paye-card">
+            <h2 class="card-title">📖 دروس پایه (دهم و یازدهم)</h2>
+            <div class="inputs-grid">
+
+                <div class="input-group" data-subject="zistP">
+                    <label class="input-label">🧬 زیست پایه</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-zistP"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-zistP"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="fizP">
+                    <label class="input-label">⚡ فیزیک پایه</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-fizP"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-fizP"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="shimiP">
+                    <label class="input-label">🧪 شیمی پایه</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-shimiP"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-shimiP"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="riyaziP">
+                    <label class="input-label">📐 ریاضی پایه</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-riyaziP"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-riyaziP"></div></div>
+                </div>
+
+                <div class="input-group" data-subject="zamini">
+                    <label class="input-label">🌍 زمین‌شناسی</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="pct-input" id="inp-zamini"
+                               min="-33" max="100" step="1" placeholder="−۳۳ تا ۱۰۰">
+                        <span class="input-unit">%</span>
+                    </div>
+                    <div class="mini-progress"><div class="mini-bar" id="bar-zamini"></div></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ─────── کارت نتیجه اصلی ─────── -->
+        <section class="card card-result" id="resultCard">
+            <h2 class="card-title">🎯 تراز تخمینی شما</h2>
+
+            <div class="taraz-display">
+                <div class="taraz-number" id="tarazNumber">-</div>
+                <div class="taraz-label" id="tarazLabel">درصدها را وارد کنید</div>
+            </div>
+
+            <div class="level-badge" id="levelBadge">
+                <span id="levelText">در انتظار ورودی...</span>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- 🎯 بخش اهداف دانشگاهی - نسخه کامل با ۶ سطح                      -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <div class="goals-section">
+                <h3 class="goals-title">🎯 فاصله تا اهداف دانشگاهی</h3>
+                
+                <!-- 🏆 سطح رویایی -->
+                <div class="goal-item goal-legendary" data-goal="legendary">
+                    <div class="goal-header">
+                        <span class="goal-emoji">🏆</span>
+                        <span class="goal-name">رویایی</span>
+                        <span class="goal-universities">تهران • بهشتی • ایران</span>
+                        <span class="goal-value" id="goalLegendary">تراز ۷۲۰۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarLegendary" style="--goal-color: #FFD700;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusLegendary"></div>
+                </div>
+
+                <!-- 🥇 سطح طلایی -->
+                <div class="goal-item goal-gold" data-goal="gold">
+                    <div class="goal-header">
+                        <span class="goal-emoji">🥇</span>
+                        <span class="goal-name">طلایی</span>
+                        <span class="goal-universities">شیراز • اصفهان • مشهد</span>
+                        <span class="goal-value" id="goalGold">تراز ۶۷۰۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarGold" style="--goal-color: #FFA500;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusGold"></div>
+                </div>
+
+                <!-- 🥈 سطح نقره‌ای -->
+                <div class="goal-item goal-silver" data-goal="silver">
+                    <div class="goal-header">
+                        <span class="goal-emoji">🥈</span>
+                        <span class="goal-name">نقره‌ای</span>
+                        <span class="goal-universities">تبریز • گیلان • کرمان • ...</span>
+                        <span class="goal-value" id="goalSilver">تراز ۶۳۰۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarSilver" style="--goal-color: #C0C0C0;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusSilver"></div>
+                </div>
+
+                <!-- 🥉 سطح برنزی -->
+                <div class="goal-item goal-bronze" data-goal="bronze">
+                    <div class="goal-header">
+                        <span class="goal-emoji">🥉</span>
+                        <span class="goal-name">برنزی</span>
+                        <span class="goal-universities">یاسوج • بوشهر • یزد • ...</span>
+                        <span class="goal-value" id="goalBronze">تراز ۵۹۰۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarBronze" style="--goal-color: #CD7F32;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusBronze"></div>
+                </div>
+
+                <!-- 👻 سطح آزاد/پردیس -->
+                <div class="goal-item goal-free" data-goal="free">
+                    <div class="goal-header">
+                        <span class="goal-emoji">👻</span>
+                        <span class="goal-name">آزاد/پردیس</span>
+                        <span class="goal-universities">آزاد • پردیس • مازاد</span>
+                        <span class="goal-value" id="goalFree">تراز ۵۵۰۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarFree" style="--goal-color: #9B59B6;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusFree"></div>
+                </div>
+
+                <!-- 🏠 سطح خانه پدری -->
+                <div class="goal-item goal-home" data-goal="home">
+                    <div class="goal-header">
+                        <span class="goal-emoji">🏠</span>
+                        <span class="goal-name">خانه پدری</span>
+                        <span class="goal-universities">استراحت • سربازی</span>
+                        <span class="goal-value" id="goalHome">تراز ۵۲۵۰</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-bar" id="goalBarHome" style="--goal-color: #E74C3C;"></div>
+                    </div>
+                    <div class="goal-status" id="goalStatusHome"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ─────── کارت تحلیل حساسیت ─────── -->
+        <section class="card card-sensitivity">
+            <h2 class="card-title">📊 تحلیل حساسیت</h2>
+            <p class="card-desc">اگر هر درس ۱۰٪ تغییر کنه، تراز چقدر عوض میشه؟</p>
+            <div class="sensitivity-list" id="sensitivityList">
+                <div class="empty-state">ابتدا درصدها را وارد کنید</div>
+            </div>
+        </section>
+
+        <!-- ─────── کارت محاسبه معکوس ─────── -->
+        <section class="card card-reverse">
+            <h2 class="card-title">🔄 محاسبه معکوس</h2>
+            <p class="card-desc">برای رسیدن به تراز دلخواه، چه درصد میانگینی نیاز دارید؟</p>
+            <div class="reverse-input-row">
+                <input type="number" class="reverse-input" id="reverseTarget"
+                       min="4000" max="10000" step="50" placeholder="مثلاً ۷۰۰۰">
+                <button class="btn-calc" id="btnReverse">محاسبه</button>
+            </div>
+            <div class="reverse-result" id="reverseResult">
+                <span class="empty-state">تراز هدف را وارد کنید</span>
+            </div>
+        </section>
+
+        <!-- ─────── کارت شبیه‌سازی ─────── -->
+        <section class="card card-simulate">
+            <h2 class="card-title">🎲 شبیه‌سازی سناریو</h2>
+            <p class="card-desc">اگر همه درس‌ها رو X درصد بزنی، تراز چند میشه؟</p>
+            <div class="simulate-input-row">
+                <input type="number" class="simulate-input" id="simPercent"
+                       min="-33" max="100" step="5" placeholder="مثلاً ۶۰">
+                <button class="btn-calc" id="btnSimulate">شبیه‌سازی</button>
+            </div>
+            <div class="simulate-result" id="simResult">
+                <span class="empty-state">درصد یکنواخت را وارد کنید</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════ فوتر ═══════════════════ -->
+    <footer class="app-footer">
+        <p>ساخته شده با ❤️ | مدل پیش‌بینی v9.0-Stable</p>
+    </footer>
+
+</body>
+</html>
