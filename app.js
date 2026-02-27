@@ -773,8 +773,8 @@ updateGoals(taraz) {
         UI.init();
     }
 
-   ✅ script.js
-javascript
+//    ✅ script.js
+// javascript
  
  /* Social Bento Interaction Layer
   (reserved for future animations or analytics)
@@ -784,3 +784,4 @@ javascript
 console.log("🔥 Social Bento Loaded Successfully");
 
 
+})();
